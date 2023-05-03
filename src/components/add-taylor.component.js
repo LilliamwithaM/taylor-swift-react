@@ -10,7 +10,6 @@ export default class AddTaylor extends Component {
         super(props);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeUrl = this.onChangeUrl.bind(this);
         this.saveTutorial = this.saveTutorial.bind(this);
         this.newTutorial = this.newTutorial.bind(this);
 
@@ -19,8 +18,7 @@ export default class AddTaylor extends Component {
         description: "",
         published: false,
         submitted: false,
-        file : null,
-        url: ""
+        file : null
         };
     }
 
@@ -32,27 +30,6 @@ export default class AddTaylor extends Component {
         })
     }
 
-    handleUpload(e, file) {
-        e.preventDefault();
-        console.log(file);
-        alert(file.name);
-    
-        const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    
-        uploadTask.on("state_changed", console.log, console.error, () =>  {
-            storage
-                    .ref("images")
-                    .child(file.name)
-                    .getDownloadURL()
-                    .then((myurl) =>  { 
-                            alert(myurl);
-                            this.setState().url=myurl
-                    });
-        
-            });
-        
-        }
-
     onChangeTitle(e) {
         this.setState({
             title: e.target.value,
@@ -62,12 +39,6 @@ export default class AddTaylor extends Component {
     onChangeDescription(e) {
         this.setState({
         description: e.target.value,
-        });
-    }
-
-    onChangeUrl(e, myurl) {
-        this.setState({
-        url: e.target.value,
         });
     }
 

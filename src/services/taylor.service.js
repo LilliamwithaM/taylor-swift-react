@@ -2,7 +2,7 @@ import firebase from "../firebase";
 
 const db = firebase.collection("/debut");
 
-export default class TaylorDataService {
+export default new class TaylorDataService {
     getAll() {
         return db;
     }
