@@ -2,7 +2,7 @@ import firebase from "../firebase";
 
 const db = firebase.collection("/debut");
 
-class TaylorDataService {
+export default class TaylorDataService {
     getAll() {
         return db;
     }
@@ -19,5 +19,3 @@ class TaylorDataService {
         return db.doc(id).delete();
     }
 }
-
-export default new TaylorDataService();
