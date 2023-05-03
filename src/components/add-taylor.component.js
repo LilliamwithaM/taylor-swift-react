@@ -46,7 +46,7 @@ export default class AddTaylor extends Component {
                     .getDownloadURL()
                     .then((myurl) =>  { 
                             alert(myurl);
-                            this.state.url=myurl
+                            this.setState().url=myurl
                     });
         
             });
