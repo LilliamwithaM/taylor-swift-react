@@ -90,7 +90,7 @@ export default class TaylorList extends Component {
                 ) : (
                     <div>
                         <br />
-                        <p>Please click on a Taylor song...</p>
+                        <p>Please click on a Taylor song</p>
                     </div>
                 )}
                 </div>
