@@ -1,0 +1,60 @@
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #7b7676; /* Color de texto blanco */
+}
+
+input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #efdff7; /* Color de fondo gris claro */
+    color: #881db3; /* Color de texto negro */
+}
+
+input[type="file"] {
+    margin-right: 1rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #bb8dcd; 
+    color: #fff;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-success {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #bb8dcd;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-success:hover {
+    background-color: #b06fca;
+}
