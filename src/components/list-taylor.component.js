@@ -1,100 +1,118 @@
 import React, { Component } from "react";
 import TaylorDataService from "../services/taylor.service";
-
+import '../styles/cards.css';
+import '../styles/play.css'
 import Taylor from "./taylor.component";
 
 export default class TaylorList extends Component {
     constructor(props) {
         super(props);
         this.refreshList = this.refreshList.bind(this);
-        this.setActiveTutorial = this.setActiveTutorial.bind(this);
+        this.setActiveTaylor = this.setActiveTaylor.bind(this);
         this.onDataChange = this.onDataChange.bind(this);
-
+    
         this.state = {
-        tutorials: [],
-        currentTutorial: null,
-        currentIndex: -1,
+            taylors: [],
+            currentTaylor: null,
+            currentIndex: -1,
         };
-
+    
         this.unsubscribe = undefined;
-    }
-
-    componentDidMount() {
+        }
+    
+        componentDidMount() {
         this.unsubscribe = TaylorDataService.getAll().orderBy("title", "asc").onSnapshot(this.onDataChange);
-    }
-
-    componentWillUnmount() {
+        }
+    
+        componentWillUnmount() {
         this.unsubscribe();
-    }
-
-    onDataChange(items) {
-        let tutorials = [];
-
+        }
+    
+        onDataChange(items) {
+        let taylors = [];
+    
         items.forEach((item) => {
-        let id = item.id;
-        let data = item.data();
-        tutorials.push({
+            let id = item.id;
+            let data = item.data();
+            taylors.push({
             id: id,
             title: data.title,
-            description: data.description,
+            era: data.era,
             published: data.published,
+            url: data.url,
+            });
         });
-        });
-
+    
         this.setState({
-        tutorials: tutorials,
+            taylors: taylors,
         });
-    }
-
-    refreshList() {
+        }
+    
+        refreshList() {
         this.setState({
-        currentTutorial: null,
-        currentIndex: -1,
+            currentTaylor: null,
+            currentIndex: -1,
         });
-    }
-
-    setActiveTutorial(tutorial, index) {
+        }
+    
+        setActiveTaylor = (taylor) => {
         this.setState({
-        currentTutorial: tutorial,
-        currentIndex: index,
+            currentClip: taylor,
         });
-    }
-
-    render() {
-            const { tutorials, currentTutorial, currentIndex } = this.state;
-        
-            return (
-                <div className="list row">
-                <div className="col-md-6">
-                    <h4>Taylor List</h4>
-        
-                    <ul className="list-group">
-                    {tutorials &&
-                        tutorials.map((tutorial, index) => (
-                        <li
-                            className={ "list-group-item " + (index === currentIndex ? "active" : "") }
-                            onClick={() => this.setActiveTutorial(tutorial, index)}
-                            key={index}
-                        >
-                            {tutorial.title}
-                        </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="col-md-6">
-                    {currentTutorial ? (
-                    <Taylor
-                        tutorial={currentTutorial}
-                        refreshList={this.refreshList}
-                    />
-                ) : (
-                    <div>
-                        <br />
-                        <p>Please click on a Taylor song</p>
+        };
+    
+        playVideo = (event) => {
+        event.target.play();
+        setTimeout(() => {
+            event.target.pause();
+            event.target.currentTime = 0;
+        }, 5000);
+        };
+    
+        render() {
+        const { taylors, currentTaylor } = this.state;
+    
+        return (
+            <><div className="contenedorDeMiniatura">
+                <br />
+                    <p>Please click on a Taylor songs...</p>
+            {taylors.map((taylor) => (
+                <div className="miniatura" key={taylor.title}>
+                <div
+                    className="card"
+                    onClick={() => {
+                    console.log("La tarjeta ha sido clickeada");
+                    this.setActiveTaylor(taylor);
+                    }}
+                >
+                    <div className="video-container">
+                    <video
+                        className="card-img-top video"
+                        src={taylor.url}
+                        muted
+                        onMouseOver={(event) => event.target.play()}
+                        controls={false}
+                    >
+                        Your browser does not support HTML5 video.
+                    </video>
                     </div>
-                )}
                 </div>
+                <h5 className="title">{taylor.title}</h5>
+                </div>
+            ))}
             </div>
-            );
+            <div className="reproductorVideo">
+                {currentTaylor ? (
+                <Taylor
+                    taylor={currentTaylor}
+                    refreshList={this.refreshList}
+                    key={currentTaylor.id} // agregar una clave única
+                />
+                ) : (
+                <div>
+                </div>
+                )}
+            </div></>
+        );
         }
     }

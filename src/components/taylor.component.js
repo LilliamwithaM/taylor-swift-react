@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import TaylorDataService from "../services/taylor.service";
+import ReactionsTaylorComponent from "./reactions-taylor.component";
+import CommentsTaylorComponent from "./comments-taylor.component";
+import '../styles/taylor.css'
 
 export default class Taylor extends Component {
     constructor(props) {
         super(props);
         this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeEra = this.onChangeEra.bind(this);
         this.updatePublished = this.updatePublished.bind(this);
-        this.updateTutorial = this.updateTutorial.bind(this);
-        this.deleteTutorial = this.deleteTutorial.bind(this);
+        this.updateTaylor = this.updateTaylor.bind(this);
+        this.deleteTaylor = this.deleteTaylor.bind(this);
 
         this.state = {
-        currentTutorial: {
+        currentTaylor: {
             id: null,
             title: "",
-            description: "",
+            era: "",
             published: false
         },
         message: "",
@@ -22,20 +25,20 @@ export default class Taylor extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        const { tutorial } = nextProps;
-        if (prevState.currentTutorial.id !== tutorial.id) {
+        const { taylor } = nextProps;
+        if (prevState.currentTaylor.id !== taylor.id) {
         return {
-            currentTutorial: tutorial,
+            currentTaylor: taylor,
             message: ""
         };
         }
 
-        return prevState.currentTutorial;
+        return prevState.currentTaylor;
     }
 
     componentDidMount() {
         this.setState({
-        currentTutorial: this.props.tutorial,
+        currentTaylor: this.props.taylor,
         });
     }
 
@@ -44,33 +47,33 @@ export default class Taylor extends Component {
 
         this.setState(function (prevState) {
         return {
-            currentTutorial: {
-            ...prevState.currentTutorial,
+            currentTaylor: {
+            ...prevState.currentTaylor,
             title: title,
             },
         };
         });
     }
 
-    onChangeDescription(e) {
-        const description = e.target.value;
+    onChangeEra(e) {
+        const era = e.target.value;
 
         this.setState((prevState) => ({
-        currentTutorial: {
-            ...prevState.currentTutorial,
-            description: description,
+        currentTaylor: {
+            ...prevState.currentTaylor,
+            era: era,
         },
         }));
     }
 
     updatePublished(status) {
-        TaylorDataService.update(this.state.currentTutorial.id, {
+        TaylorDataService.update(this.state.currentTaylor.id, {
         published: status,
         })
         .then(() => {
             this.setState((prevState) => ({
-            currentTutorial: {
-                ...prevState.currentTutorial,
+            currentTaylor: {
+                ...prevState.currentTaylor,
                 published: status,
             },
             message: "The status was updated successfully!",
@@ -81,16 +84,16 @@ export default class Taylor extends Component {
         });
     }
 
-    updateTutorial() {
+    updateTaylor() {
         const data = {
-        title: this.state.currentTutorial.title,
-        description: this.state.currentTutorial.description,
+        title: this.state.currentTaylor.title,
+        era: this.state.currentTaylor.era,
         };
 
-        TaylorDataService.update(this.state.currentTutorial.id, data)
+        TaylorDataService.update(this.state.currentTaylor.id, data)
         .then(() => {
             this.setState({
-            message: "The tutorial was updated successfully!",
+            message: "The taylor song was updated successfully!",
             });
         })
         .catch((e) => {
@@ -98,8 +101,8 @@ export default class Taylor extends Component {
         });
     }
 
-    deleteTutorial() {
-        TaylorDataService.delete(this.state.currentTutorial.id)
+    deleteTaylor() {
+        TaylorDataService.delete(this.state.currentTaylor.id)
         .then(() => {
             this.props.refreshList();
         })
@@ -108,83 +111,35 @@ export default class Taylor extends Component {
         });
     }
 
-    render() { 
-        const { currentTutorial } = this.state;
-
-    return (
-        <div>
-            <h4>Tutorial</h4>
-            {currentTutorial ? (
-            <div className="edit-form">
-                <form>
-                <div className="form-group">
-                    <label htmlFor="title">Title</label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    id="title"
-                    value={currentTutorial.title}
-                    onChange={this.onChangeTitle}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <input
-                    type="text"
-                    className="form-control"
-                    id="description"
-                    value={currentTutorial.description}
-                    onChange={this.onChangeDescription}
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>
-                    <strong>Status:</strong>
-                    </label>
-                    {currentTutorial.published ? "Published" : "Pending"}
-                </div>
-                </form>
-
-                {currentTutorial.published ? (
-                <button
-                    className="badge badge-primary mr-2"
-                    onClick={() => this.updatePublished(false)}
-                >
-                    UnPublish
-                </button>
+    render() {
+        const { currentTaylor } = this.state;
+    
+        return (
+            <div className="clip-container">
+                <div class="clip">
+                {currentTaylor ? (
+                    <div className="edit-form">
+                    <form>
+                        <div class="video-container">
+                        <video controls>
+                            <source src={currentTaylor.url} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        </div>
+                        <h4>{currentTaylor.title}</h4>
+                        < ReactionsTaylorComponent />
+                        < CommentsTaylorComponent />
+                    </form>
+                    </div>
+        
                 ) : (
-                <button
-                    className="badge badge-primary mr-2"
-                    onClick={() => this.updatePublished(true)}
-                >
-                    Publish
-                </button>
+                    <div>
+                    <br />
+                    <p>Please click on a Taylors song...</p>
+                    </div>
                 )}
-
-                <button
-                className="badge badge-danger mr-2"
-                onClick={this.deleteTutorial}
-                >
-                Delete
-                </button>
-
-                <button
-                type="submit"
-                className="badge badge-success"
-                onClick={this.updateTutorial}
-                >
-                Update
-                </button>
-                <p>{this.state.message}</p>
+                </div>
             </div>
-            ) : (
-            <div>
-                <br />
-                <p>Please click on a Tutorial...</p>
-            </div>
-            )}
-        </div>
-        );
-    }
+            );
+        }
 }
