@@ -1,12 +1,12 @@
-name: release CI, CD workflow 
-#release
+name: master CI, CD workflow 
+#master
 on: 
   push:
-    branches: [ "release"]
+    branches: [ "master"]
   pull_request:
-    branches: [ "release"]
+    branches: [ "master"]
 jobs:
-  release:
+  master:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
           docker cp build/.  serving_base:/usr/local/apache2/htdocs
           
       - name: Build the custom Docker image
-        run: docker commit --change "ENV MODEL_NAMES ${{secrets.MODEL_NAMES}}" serving_base ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAMES}}:${{github.sha}}
+        run: docker commit --change "ENV MODEL_NAME ${{secrets.MODEL_NAME}}" serving_base ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}}
 
       - name: show docker images
         run: docker images
@@ -56,16 +56,16 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
           
       - name: Docker Push
-        run: docker push ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAMES}}:${{github.sha}}
+        run: docker push ${{secrets.DOCKER_USER}}/${{secrets.MODEL_NAME}}:${{github.sha}}
       
       - name: update docker user in k8 
         run: sed -i 's/{docker_user}/${{secrets.DOCKER_USER}}/g' manifests/k8s.yaml
 
       - name: update model name in k8 
-        run: sed -i 's/{model_names}/${{secrets.MODEL_NAMES}}/g' manifests/k8s.yaml
+        run: sed -i 's/{model_name}/${{secrets.MODEL_NAME}}/g' manifests/k8s.yaml
 
-      - name: update model nodos in k8 
-        run: sed -i 's/{nodos}/${{secrets.NODOS}}/g' manifests/k8s.yaml
+      - name: update model nodo in k8 
+        run: sed -i 's/{nodo}/${{secrets.NODO}}/g' manifests/k8s.yaml
         
       - name: update _ by - 
         run: sed -i 's/_/-/g' manifests/k8s.yaml
@@ -86,4 +86,4 @@ jobs:
         with:
           namespace: ${{secrets.OKTETO_NAMESPACE }}
           manifest: manifests/k8s.yaml
-          tag: ${{ secrets.DOCKER_USERNAME }}/${{secrets.MODEL_NAMES}}:${{github.sha}}
+          tag: ${{ secrets.DOCKER_USERNAME }}/${{secrets.MODEL_NAME}}:${{github.sha}}
