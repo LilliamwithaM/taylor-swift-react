@@ -1,5 +1,4 @@
 class KafkaService {
-    
     url = 'https://kafka-express-service-lilliamwitham.cloud.okteto.net/';
    
     reaction = async (name) => {
