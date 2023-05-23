@@ -63,3 +63,5 @@ function ReactionsComponent() {
     </div>
   );
 }
+
+export default ReactionsComponent;
