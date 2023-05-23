@@ -19,5 +19,5 @@ class KafkaService {
     }
   
   }
-  
+  // eslint-disable-next-line
   export default new KafkaService();
