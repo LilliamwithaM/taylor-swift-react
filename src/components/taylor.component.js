@@ -126,9 +126,6 @@ export default class Taylor extends Component {
                             Your browser does not support the video tag.
                         </video>
                         </div>
-                        <h4>{currentTaylor.title}</h4>
-                        < ReactionsTaylorComponent />
-                        < CommentsTaylorComponent />
                     </form>
                     </div>
         

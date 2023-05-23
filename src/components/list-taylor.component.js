@@ -3,6 +3,8 @@ import TaylorDataService from "../services/taylor.service";
 import '../styles/cards.css';
 import '../styles/play.css'
 import Taylor from "./taylor.component";
+import ReactionsTaylorComponent from "./reactions-taylor.component";
+import CommentsTaylorComponent from "./comments-taylor.component";
 
 export default class TaylorList extends Component {
     constructor(props) {
@@ -98,6 +100,8 @@ export default class TaylorList extends Component {
                     </div>
                 </div>
                 <h5 className="title">{taylor.title}</h5>
+                        < ReactionsTaylorComponent />
+                        < CommentsTaylorComponent />
                 </div>
             ))}
             </div>
