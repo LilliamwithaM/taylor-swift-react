@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/clip.css'
+import '../styles/taylor.css'
 import KafkaService from "../services/kafka.service";
 
 function ReactionsComponent() {
