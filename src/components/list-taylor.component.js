@@ -100,8 +100,8 @@ export default class TaylorList extends Component {
                     </div>
                 </div>
                 <h5 className="title">{taylor.title}</h5>
-                        < ReactionsTaylorComponent />
-                        < CommentsTaylorComponent />
+                        <ReactionsTaylorComponent/>
+                        <CommentsTaylorComponent />
                 </div>
             ))}
             </div>
@@ -110,7 +110,7 @@ export default class TaylorList extends Component {
                 <Taylor
                     taylor={currentTaylor}
                     refreshList={this.refreshList}
-                    key={currentTaylor.id} // agregar una clave única
+                    key={currentTaylor.id} 
                 />
                 ) : (
                 <div>
