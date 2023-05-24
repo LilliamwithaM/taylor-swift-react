@@ -101,7 +101,7 @@ export default class TaylorList extends Component {
                 </div>
                 <h5 className="title">{taylor.title}</h5>
                         <ReactionsTaylorComponent/>
-                        <CommentsTaylorComponent />
+                        <CommentsTaylorComponent/>
                 </div>
             ))}
             </div>

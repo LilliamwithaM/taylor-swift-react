@@ -2,7 +2,7 @@ import React from "react";
 import '../styles/taylor.css'
 import KafkaService from "../services/kafka.service";
 
-function ReactionsComponent() {
+function ReactionsTaylorComponent() {
   function saveLike(e, status) {
   
     let data = {
@@ -64,4 +64,4 @@ function ReactionsComponent() {
   );
 }
 
-export default ReactionsComponent;
+export default ReactionsTaylorComponent;

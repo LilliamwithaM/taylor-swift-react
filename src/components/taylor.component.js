@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import TaylorDataService from "../services/taylor.service";
-import ReactionsTaylorComponent from "./reactions-taylor.component";
-import CommentsTaylorComponent from "./comments-taylor.component";
 import '../styles/taylor.css'
 
 export default class Taylor extends Component {
