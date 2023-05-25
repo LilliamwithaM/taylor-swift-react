@@ -11,7 +11,7 @@ function ReactionsTaylorComponent() {
     };
  
     console.log(JSON.stringify(data));
- 
+    //i-love-adsofsito
     KafkaService.reaction("i-love-taylor-swift");
     e.preventDefault();
 }
