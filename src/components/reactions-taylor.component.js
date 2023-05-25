@@ -12,7 +12,7 @@ function ReactionsTaylorComponent() {
  
     console.log(JSON.stringify(data));
  
-    KafkaService.reaction("i-love-adsoftsito");
+    KafkaService.reaction("i-love-taylor-swift");
     e.preventDefault();
 }
 
