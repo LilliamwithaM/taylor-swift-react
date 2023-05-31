@@ -9,6 +9,16 @@
     margin-bottom: 1rem;
 }
 
+.navbar {
+    background-color: #bfa1cb;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
 label {
     display: block;
     margin-bottom: 0.5rem;

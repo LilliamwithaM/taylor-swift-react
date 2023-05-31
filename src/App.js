@@ -8,6 +8,7 @@ import imgEras from './images/eras.png';
 
 import AddTaylor from "./components/add-taylor.component.js";
 import TaylorList from "./components/list-taylor.component.js";
+import SignIn from "./components/signin";
 
 class App extends Component {
   render() {
@@ -41,15 +42,16 @@ class App extends Component {
         
         <div className="container mt-3">
           <Routes>
+            <Route path="/" element={<SignIn/>} />
             <Route path="/taylorlist" element={<TaylorList/>} />
             <Route path="/add" element={<AddTaylor/>} />
-            <Route path="/home" element={<imgWall/>}/>
+            <Route path="/home" element={<SignIn/>}/>
           </Routes>
         </div>
         <img src={imgWall} alt="Wallpaper" className="img-wall"></img>
-        <div class="container-fluid bg-expand-lg text-center p-3">
-          <p class="medium">Develop by Lilliam Romero Reyes</p>
-          <p class="small">zS20006765@estudiantes.uv.mx</p>
+        <div className="container-fluid bg-expand-lg text-center p-3">
+          <p className="medium">Develop by Lilliam Romero Reyes</p>
+          <p className="small">zS20006765@estudiantes.uv.mx</p>
         </div>
       </div>
     );
