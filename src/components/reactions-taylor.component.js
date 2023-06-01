@@ -44,9 +44,9 @@ const ReactionsTaylorComponent = ({ id }) => {
   };
 
   const reaction = (e, status) => {
-    const user = localStorage.getItem('user');
+    const email = localStorage.getItem('email');
     const data = {
-      userId: user,
+      userId: email,
       objectId: id,
       reactionId: status
     };
