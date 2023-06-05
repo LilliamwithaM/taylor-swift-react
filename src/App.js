@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg">
-          <a href="/home" className="navbar-brand">
+          <a href="/" className="navbar-brand">
             <img src={imgLogo} alt="Logo" className="logo-left" height="200"></img>
           </a>
           <div className="navbar-nav mr-auto">
@@ -30,9 +30,9 @@ class App extends Component {
               </Link>
             </li>
           </div>
-          <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item avatar">
-              <a class="nav-link p-0" href="/home">
+          <ul className="navbar-nav ml-auto nav-flex-icons">
+            <li className="nav-item avatar">
+              <a className="nav-link p-0" href="/home">
                 <img src={imgEras} alt="Eras" className="z-depth-0" height="230"></img>
               </a>
             </li>

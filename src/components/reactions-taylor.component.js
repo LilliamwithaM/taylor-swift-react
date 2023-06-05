@@ -14,7 +14,7 @@ const ReactionsTaylorComponent = ({ id }) => {
 
   useEffect(() => {
     fetchReactions();
-     // eslint-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   const fetchReactions = async (r) => {
@@ -43,6 +43,42 @@ const ReactionsTaylorComponent = ({ id }) => {
     }
   };
 
+  const fetchReactionsLike = async (r) => {
+    const responseLike = await axios.get(`${uri}/${id}/like`);
+    const likeCount = responseLike.data ? responseLike.data.n : 0;
+    setLikeCount(likeCount);
+  }
+
+  const fetchReactionsLove = async (r) => {
+    const responseLove = await axios.get(`${uri}/${id}/love`);
+    const loveCount = responseLove.data ? responseLove.data.n : 0;
+    setLoveCount(loveCount);
+  }
+
+  const fetchReactionsAngry = async (r) => {
+    const responseAngry = await axios.get(`${uri}/${id}/angry`);
+    const angryCount = responseAngry.data ? responseAngry.data.n : 0;
+    setAngryCount(angryCount);
+  }
+
+  const fetchReactionsWow = async (r) => {
+    const responseWow = await axios.get(`${uri}/${id}/wow`);
+    const wowCount = responseWow.data ? responseWow.data.n : 0;
+    setWowCount(wowCount);
+  }
+
+  const fetchReactionsHaha = async (r) => {
+    const responseHaha = await axios.get(`${uri}/${id}/haha`);
+    const hahaCount = responseHaha.data ? responseHaha.data.n : 0;
+    setHahaCount(hahaCount);
+  }
+
+  const fetchReactionsSad = async (r) => {
+    const responseSad = await axios.get(`${uri}/${id}/sad`);
+    const sadCount = responseSad.data ? responseSad.data.n : 0;
+    setSadCount(sadCount);
+  }
+
   const reaction = (e, status) => {
     const email = localStorage.getItem('email');
     const data = {
@@ -55,7 +91,6 @@ const ReactionsTaylorComponent = ({ id }) => {
     KafkaService.reactionPush(data);
     e.preventDefault();
   };
-  
 
   return (
 
@@ -65,7 +100,7 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "like");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsLike}
       >
         <tool-tip>{likeCount}</tool-tip>
       </div>
@@ -74,7 +109,7 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "love");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsLove}
       >
         <tool-tip>{loveCount}</tool-tip>
       </div>
@@ -83,7 +118,7 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "haha");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsHaha}
       >
         <tool-tip>{HahaCount}</tool-tip>
       </div>
@@ -92,7 +127,7 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "wow");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsWow}
       >
         <tool-tip>{WowCount}</tool-tip>
       </div>
@@ -101,7 +136,7 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "sad");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsSad}
       >
         <tool-tip>{SadCount}</tool-tip>
       </div>
@@ -110,13 +145,13 @@ const ReactionsTaylorComponent = ({ id }) => {
         e.preventDefault();
         reaction(e, "angry");
       }}
-      onMouseOver={fetchReactions}
+      onMouseOver={fetchReactionsAngry}
       >
         <tool-tip>{AngryCount}</tool-tip>
       </div>
 
     </div>
   );
-}
+};
 
 export default ReactionsTaylorComponent;
